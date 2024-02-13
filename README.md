@@ -33,7 +33,7 @@ Run Tests commandline from the project root folder
 
 -> npx cypress run cypress\e2e\Test1_ToVerifyTheme.js, \cypress\e2e\Test2_ToVerifySearchAPICall.js
 
-
+Once the execution is done, locate videos in project folder and check the mp4 files generated with testcase names.
 
 To Run tests on Cypress executor
 -------
