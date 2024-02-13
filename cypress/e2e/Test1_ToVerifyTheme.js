@@ -1,48 +1,42 @@
 /// <reference types="cypress" />
 
-import { onHomePage } from '../support/pageObjects/HomePage';
+// importing page objects
+import { homePage } from '../support/pageObjects/HomePage';
 import { settingsPage } from '../support/pageObjects/SettingsPage';
 
 describe('DuckDuckGo Testcases', () => {
-    //closure variable
+    //declaring a closure variable
     let data;
+    //reading testdata 
     before('Initializing Test Data', () => {
-        cy.fixture('testData').then((tData) => {
+        cy.fixture('uiTestData').then((tData) => {
             data = tData;
         });
     });
 
+    //To openhome page as a precautionary-step before every test
     beforeEach('Navigate to home page', () => {
+        //from added commands
         cy.navigateToHomePage();
     })
 
+    // Navigate to homepage and verify page title, and searchbar
     it('Verify homepage title and searchbar', function () {
         cy.title().should('equal', data.pageTitle);
-        onHomePage.verifySearchbarIsDisplayed()
-        onHomePage.verifySearchbarIsActive(data.searchDisplayeAttribute)
-        onHomePage.clickSettings()
+        homePage.verifySearchbarIsDisplayed()
+        homePage.verifySearchbarIsActive(data.searchDisplayeAttribute)
+        homePage.clickSettings()
         settingsPage.clickOnSettingsPageLinks(data.appearanceTab)
         settingsPage.clickOnTheme(data.darkTheme)
         settingsPage.verifyThemeUpdated(data.darkTheme)
     })
 
+    //Navigate to settings page, select theme and verify
     it('Navigate to settings and change Theme', function () {
-        onHomePage.clickSettings()
+        homePage.clickSettings()
         settingsPage.clickOnSettingsPageLinks(data.appearanceTab)
         settingsPage.clickOnTheme(data.darkTheme)
         settingsPage.verifyThemeUpdated(data.darkTheme)
     })
-
-    // // it("Enter query in seach bar and verify", function(){
-    // //     cy.intercept('GET', Cypress.env('apiUrl')).as('getResults')
-    // //     onHomePage.fillQueryInSearchBar(data.searchQuery)
-    // //     cy.wait('@getResults', {'timeout':5000});
-    // //     cy.get('@getResults').then(res =>{
-    // //         console.log(res.response.statusCode)
-    // //         Cypress.log(res.response)
-    // //         expect(res.response.statusCode).to.equal(200);
-    // //         cy.wrap(res).get('head').contains('title',data.searchQuery + data.searchResultTitleSuffix)
-    // //     })
-    // })
 })
 

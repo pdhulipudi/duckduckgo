@@ -9,7 +9,6 @@ export default defineConfig({
     excludeSpecPattern: ['**/1-getting-started', '**/2-advanced-examples'],
     specPattern: 'cypress/e2e/**/*.js',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
     },
   },
   env: {
